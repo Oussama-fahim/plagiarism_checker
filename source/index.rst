@@ -870,7 +870,7 @@ Génération de Rapports
         }, indent=2)
 
 Explications :
-~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
 - Format JSON structuré
 - Téléchargement direct via Streamlit
 
