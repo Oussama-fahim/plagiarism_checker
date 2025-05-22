@@ -225,15 +225,20 @@ Phase 2: Analyse de Plagiat (Frontend/Backend)
      - JSON + Streamlit
      - Export des résultats détaillés
 
+
 Création d'une Base de Données Vectorielle avec LlamaParse
-=========================================================
+===========================================================
 
-Ce guide explique étape par étape comment transformer des documents PDF en base vectorielle utilisable pour la détection de plagiat.
+Ce guide fournit une procédure complète pour transformer un ou plusieurs fichiers PDF en une base de données vectorielle, utilisable notamment pour la détection de similarité textuelle ou de plagiat. L'approche repose sur l'utilisation combinée de **LlamaParse** pour l'extraction intelligente de texte structuré et de **LangChain** pour la vectorisation et la gestion des documents.
 
+.. contents:: Sommaire
+   :depth: 2
+   :local:
 
+Étape 1 : Installation des Dépendances
+--------------------------------------
 
-Étape 1: Installation des Dépendances
--------------------------------------
+Cette première étape consiste à importer l'ensemble des librairies nécessaires au bon fonctionnement du pipeline. 
 
 .. code-block:: python
    :linenos:
@@ -248,14 +253,15 @@ Ce guide explique étape par étape comment transformer des documents PDF en bas
    from llama_cloud_services.parse.utils import Language
    from langchain_community.embeddings.ollama import OllamaEmbeddings
 
-**Explication** :  
-Importation des librairies essentielles :
-- ``llama_parse`` pour l'extraction de documents
-- ``langchain`` pour la gestion des vecteurs
-- ``OllamaEmbeddings`` pour les embeddings
+Les modules importés remplissent des rôles spécifiques :
+- `llama_parse` permet d'extraire le contenu structuré des PDF (en Markdown ici).
+- `langchain` permet de gérer la transformation du texte en vecteurs ainsi que leur stockage dans une base.
+- `OllamaEmbeddings` fournit un modèle d'embedding performant pour convertir du texte en vecteurs numériques.
 
-Étape 2: Configuration de l'API LlamaParse
-------------------------------------------
+Étape 2 : Configuration de l'API LlamaParse
+-------------------------------------------
+
+Avant de lancer l'extraction, il est nécessaire de configurer LlamaParse avec une clé API valide. On peut également spécifier la langue du document pour améliorer la précision de l’analyse.
 
 .. code-block:: python
    :linenos:
@@ -271,14 +277,12 @@ Importation des librairies essentielles :
        language=Language.ENGLISH
    )
 
-**Explication** :  
-Configuration des parseurs multilingues avec :
-- Clé API pour LlamaCloud
-- Sortie en Markdown (``ResultType.MD``)
-- Support français/anglais
+Deux parseurs sont initialisés ici : un pour les documents en français et un autre pour ceux en anglais. Le format de sortie sélectionné est le Markdown (`ResultType.MD`), ce qui permet de conserver la structure logique du document original (titres, paragraphes, listes, etc.).
 
-Étape 3: Extraction du Contenu PDF
-----------------------------------
+Étape 3 : Extraction du Contenu PDF
+-----------------------------------
+
+On procède ensuite à l’extraction effective du contenu des fichiers PDF. LlamaParse utilisant des appels asynchrones, l’environnement doit être adapté pour gérer cela correctement.
 
 .. code-block:: python
    :linenos:
@@ -296,13 +300,12 @@ Configuration des parseurs multilingues avec :
            for doc in documents:
                f.write(doc.text + "\\n\\n")
 
-**Explication** :  
-- Activation du support asynchrone (requis par LlamaParse)
-- Conversion du PDF en Markdown structuré
-- Sauvegarde dans un fichier intermédiaire
+Chaque fichier est traité indépendamment. Le texte extrait est structuré et stocké dans un fichier Markdown intermédiaire (`plagia_data.md`). Cela facilite les traitements ultérieurs, notamment pour la segmentation en paragraphes ou sections.
 
-Étape 4: Préparation des Données
---------------------------------
+Étape 4 : Préparation des Données
+---------------------------------
+
+Une fois le contenu extrait, il est lu depuis le fichier Markdown et segmenté en paragraphes. Ces derniers seront convertis en objets `Document`, reconnus par LangChain.
 
 .. code-block:: python
    :linenos:
@@ -313,12 +316,12 @@ Configuration des parseurs multilingues avec :
    paragraphs = [p.strip() for p in markdown_content.split('\\n\\n') if p.strip()]
    documents = [Document(page_content=paragraph) for paragraph in paragraphs]
 
-**Explication** :  
-- Découpage par paragraphes (double saut de ligne)
-- Création d'objets ``Document`` pour LangChain
+Chaque double saut de ligne est interprété comme une séparation logique entre les idées ou blocs de contenu. Cette segmentation est cruciale pour que les embeddings soient cohérents et représentatifs du contenu.
 
-Étape 5: Génération des Embeddings
-----------------------------------
+Étape 5 : Génération des Embeddings
+-----------------------------------
+
+Cette étape est centrale : elle convertit le texte en vecteurs numériques à l’aide d’un modèle d’embedding compatible avec LangChain. Ces vecteurs sont ensuite stockés dans une base Chroma persistante.
 
 .. code-block:: python
    :linenos:
@@ -333,14 +336,12 @@ Configuration des parseurs multilingues avec :
    )
    vecdb.persist()
 
-**Explication** :  
-- Initialisation du modèle d'embedding Ollama
-- Création de la base Chroma avec :
-  - Persistance locale (``philo_db``)
-  - Nom de collection personnalisé
+Le modèle utilisé ici, `mxbai-embed-large:latest`, encode chaque paragraphe en un vecteur dense de 1024 dimensions. Ces vecteurs sont ensuite indexés et sauvegardés localement dans un dossier nommé `philo_db`. La collection `rag-chroma` permet de regrouper les documents selon un même thème ou usage.
 
 Résultats
 ---------
+
+À l'issue de ce processus, une base vectorielle est constituée à partir du contenu textuel extrait.
 
 .. code-block:: text
 
@@ -348,19 +349,20 @@ Résultats
    - 914 paragraphes traités
    - Base vectorielle sauvegardée dans: philo_db
 
-Diagramme du Processus
-----------------------
-
-.. image:: _static/pipeline_llamaparse.png
-   :align: center
-   :width: 800
-   :alt: Workflow LlamaParse → Chroma DB
+Cette base peut désormais être utilisée pour la recherche sémantique, la détection de plagiat ou l’implémentation d’un système RAG (Retrieval-Augmented Generation).
 
 Notes Techniques
----------------
-- Format des embeddings : 1024 dimensions (mxbai-embed-large)
-- Taille moyenne par paragraphe : 150-300 mots
-- Métadonnées incluses : source, langue
+----------------
+
+- **Format des embeddings** : chaque paragraphe est transformé en un vecteur de 1024 dimensions, ce qui garantit une bonne expressivité sémantique.
+- **Taille moyenne des paragraphes** : entre 150 et 300 mots, ce qui est optimal pour les modèles d’embedding modernes.
+- **Métadonnées** : il est possible d’ajouter des métadonnées à chaque `Document` (par exemple la langue, l’origine du fichier, la section du document, etc.) pour des filtres ou recherches avancées.
+
+Conclusion
+----------
+
+Ce guide constitue une base robuste pour créer une base vectorielle à partir de documents PDF multilingues. Il est facilement extensible pour inclure plus de fichiers, enrichir les métadonnées ou intégrer des systèmes de recherche sémantique avancée.
+
 
 
 
