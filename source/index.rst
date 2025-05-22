@@ -149,7 +149,7 @@ Les bibliothèques suivantes sont nécessaires pour le projet :
 pipeline
 ========
 .. list-table::
-   :widths: 100 200
+   :widths: 200 200
    :align: center
 
    * - .. image:: image/1.png
@@ -420,8 +420,10 @@ check_exact_match()
            # Similarité textuelle avec SequenceMatcher
            match_ratio = SequenceMatcher(None, normalized_input, normalized_doc).ratio()
 
-**Explication** :  
+**Explication** : 
+
 Cette fonction implémente la première couche de la recherche hybride :
+
 1. Normalisation du texte (minuscules, suppression ponctuation)
 2. Hashing MD5 pour les correspondances exactes
 3. ``SequenceMatcher`` pour les similarités textuelles (>70%)
@@ -450,7 +452,9 @@ translate_text()
            return response["message"]["content"]
 
 **Rôle** :  
+
 Permet la composante multilingue de la recherche hybride :
+
 - Utilise Ollama/Llama3 pour les traductions FR↔EN
 - Cache les résultats pour 1 heure (optimisation performance)
 - Gère les textes courts (ne traduit pas en dessous de 50 caractères)
@@ -472,7 +476,9 @@ calculate_similarity()
        return (cross_score * 0.7) + (tfidf_sim * 0.3)  # Combinaison pondérée
 
 **Fonctionnement** :  
+
 Coeur de l'approche hybride :
+
 1. **TF-IDF** : Similarité surfacelle (mots-clés, n-grams)
 2. **Cross-Encoder** : Compréhension sémantique profonde
 3. Pondération : 70% sémantique + 30% lexicale
@@ -506,6 +512,7 @@ hybrid_search()
        return sorted(all_results, key=lambda x: x["combined_score"], reverse=True)[:top_k]
 
 **Workflow** :
+
 1. Orchestre les différentes méthodes de recherche
 2. Combine les résultats natifs et traduits
 3. Applique des pénalités aux résultats traduits (-10%)
@@ -538,6 +545,7 @@ analyze_ideas()
 
 **Objectif** :  
 Détecte les plagiat conceptuel en :
+
 - Découpant le texte en phrases
 - Comparant chaque paire de phrases
 - Gardant les matches >50% de similarité
@@ -565,6 +573,7 @@ create_similarity_network()
 
 **Rôle** :  
 Génère une visualisation interactive des connexions entre :
+
 - Le texte source (nœuds bleus)
 - Les documents trouvés (nœuds rouges)
 - Les arêtes pondérées par le score de similarité
@@ -611,6 +620,7 @@ Configuration Initiale
     )
 
 Explications :
+~~~~~~~~~~~~~~
 - ``layout="wide"`` permet d'utiliser toute la largeur de l'écran
 - Personnalisation du titre et de l'icône pour une identité visuelle
 
@@ -636,6 +646,7 @@ Initialisation des Modèles
         )
 
 Explications :
+~~~~~~~~~~~~~~
 - ``@st.cache_resource`` optimise les performances en cachant les ressources initialisées
 - La fonction charge les modèles NLP et la base de données vectorielle
 
@@ -667,6 +678,7 @@ En-tête Personnalisé
         """, unsafe_allow_html=True)
 
 Explications :
+~~~~~~~~~~~~~~
 - Téléchargement dynamique d'une bannière
 - Fallback sur un en-tête HTML si l'image n'est pas disponible
 
@@ -690,6 +702,7 @@ Sidebar Configurable
             )
 
 Explications :
+~~~~~~~~~~~~~~
 - Organisation des contrôles dans des expanders
 - Utilisation de widgets Streamlit variés (selectbox, slider)
 
@@ -711,6 +724,7 @@ Zone de Saisie Multimode
         )
 
 Explications :
+~~~~~~~~~~~~~~
 - Interface unifiée pour différentes méthodes de saisie
 - Traitement spécifique pour chaque type d'entrée
 
@@ -732,6 +746,7 @@ Cartes de Résultats
             """, unsafe_allow_html=True)
 
 Explications :
+~~~~~~~~~~~~~~
 - Utilisation de HTML/CSS pour des cartes stylisées
 - Classes CSS dynamiques en fonction du type de correspondance
 
@@ -752,6 +767,7 @@ Réseau de Similarité
         return net
 
 Explications :
+~~~~~~~~~~~~~~
 - Utilisation de NetworkX pour la création du graphe
 - Intégration avec PyVis pour le rendu interactif
 
@@ -770,6 +786,7 @@ Cache et Performance
         return translated_text
 
 Explications :
+~~~~~~~~~~~~~~
 - ``@st.cache_data`` pour cacher les résultats coûteux
 - TTL (Time-To-Live) de 1 heure pour les traductions
 
@@ -785,6 +802,7 @@ Traitement des Fichiers
         text = docx2txt.process(uploaded_file)
 
 Explications :
+~~~~~~~~~~~~~~
 - Support multi-format (PDF, DOCX, etc.)
 - Extraction robuste du texte
 
@@ -815,6 +833,7 @@ CSS Personnalisé
         st.markdown(css, unsafe_allow_html=True)
 
 Explications :
+~~~~~~~~~~~~~~
 - Styles CSS intégrés directement dans Streamlit
 - Utilisation de gradients et d'effets modernes
 
@@ -830,6 +849,7 @@ Mise en Page
         st.metric("Correspondances", count)
 
 Explications :
+~~~~~~~~~~~~~~
 - Layout multi-colonnes pour une organisation optimale
 - Widgets de métriques pour les KPI
 
@@ -850,6 +870,7 @@ Onglets Interactifs
             display_match_card(match)
 
 Explications :
+~~~~~~~~~~~~~~
 - Navigation par onglets pour organiser le contenu
 - Contenu dynamique dans chaque onglet
 
@@ -879,6 +900,7 @@ Conclusion
 ----------
 
 Cette interface Streamlit combine :
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - Des composants UI riches
 - Des visualisations interactives
 - Une gestion efficace des données
