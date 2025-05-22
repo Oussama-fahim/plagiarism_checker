@@ -4,7 +4,9 @@ Documentation du projet IA de plagiarism checker
 
 Bienvenue dans la documentation du projet Détection de plagiat par Intelligence Artificielle à l'aide de RAG et d'analyse sémantique avancée.Ce document détaille les méthodologies, les outils utilisés, ainsi que les résultats obtenus pour identifier les cas de plagiat, qu’ils soient exacts, paraphrasés ou sémantiquement similaires.L’objectif de ce projet est de développer un système de détection robuste en combinant plusieurs approches
 
-*Table des matières*
+.. toctree::
+   :maxdepth: 2
+   :caption: Table des matières
 
   - introduction
   - objectifs du projet
@@ -16,22 +18,6 @@ Bienvenue dans la documentation du projet Détection de plagiat par Intelligence
   - résultat
   - Travaux Futurs
   - conclusion
-
-.. toctree::
-   :maxdepth: 2
-   :hidden:
-   
-   documentation
-
-.. raw:: html
-
-   <div class="sidebar">
-   <div class="toctree-wrapper">
-   <h2>Table des matières</h2>
-   {{ toctree(maxdepth=2) }}
-   </div>
-   </div>
-
 
 .. AI Plagiarism Sentinel Pro documentation master file
 
