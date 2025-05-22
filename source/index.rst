@@ -978,8 +978,24 @@ Perspectives à Long Terme
 Ces améliorations permettront de positionner l'outil comme une solution complète de vérification d'intégrité académique et professionnelle.
 
 
-
 Conclusion
 ==========
 
-Ce projet démontre la puissance de *MediaPipe* et *TensorFlow* pour résoudre des problèmes critiques liés à la sécurité et au bien-être. L'intégration de ces outils offre une solution robuste et extensible.
+Après la réalisation de ce projet AI Plagiarism Sentinel Pro, plusieurs constats importants peuvent être tirés :
+
+1. **Efficacité de détection** : 
+   Le système combine avec succès différentes approches (correspondance exacte, analyse sémantique, similarité conceptuelle) pour offrir une détection de plagiat multi-niveaux très performante.
+
+2. **Innovation technologique** :
+   L'utilisation combinée de modèles de langue (Ollama), d'embeddings vectoriels et de techniques traditionnelles (TF-IDF) permet une analyse à la fois profonde et rapide.
+
+3. **Polyvalence linguistique** :
+   La capacité à traiter plusieurs langues (notamment français et anglais) et à identifier des similarités translinguistiques constitue un atout majeur.
+
+4. **Analyse stylistique** :
+   Les fonctionnalités d'analyse d'écriture vont au-delà de la simple détection de plagiat, offrant des insights précieux sur le style et la qualité rédactionnelle.
+
+5. **Interface intuitive** :
+   Le dashboard Streamlit propose une expérience utilisateur riche tout en restant accessible, avec des visualisations claires et des rapports détaillés.
+
+
