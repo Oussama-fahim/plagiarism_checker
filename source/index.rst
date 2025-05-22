@@ -17,6 +17,21 @@ Bienvenue dans la documentation du projet Détection de plagiat par Intelligence
   - Travaux Futurs
   - conclusion
 
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   
+   documentation
+
+.. raw:: html
+
+   <div class="sidebar">
+   <div class="toctree-wrapper">
+   <h2>Table des matières</h2>
+   {{ toctree(maxdepth=2) }}
+   </div>
+   </div>
+
 
 .. AI Plagiarism Sentinel Pro documentation master file
 
