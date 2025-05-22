@@ -382,6 +382,8 @@ La recherche hybride combine plusieurs techniques de similarité textuelle pour 
 
 Architecture Principale
 ----------------------
+
+
 .. image:: image/3.png
    :alt: architecture de la recherche hybride
    :width: 400px
