@@ -102,11 +102,15 @@ python -m spacy download fr_core_news_sm
 ```
 plagiarismchecker/
 ├── main4.py               # Application Streamlit principale
-├── Untitled-1.ipynb       # Notebook de test et prétraitement
+├── generdatavector.ipynb       # Notebook de test et prétraitement
 ├── philo_db/              # Données vectorielles persistées (Chroma)
 ├── venv/                  # Ou il ya les modèles et les bibliothèques installés
 ├── requirements.txt       # Liste complète des dépendances
 ├── plagiarism.md       # markdown qui était comme origine un pdf
+├── buid/            # pour génere une documentation readthedocs par html
+├── source/            # les sources de documentation readthedocks
+├── .readthedocks.yaml         #mettre la configuration de documentation 
+
 ```
 
 ---
