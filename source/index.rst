@@ -148,6 +148,16 @@ Les bibliothèques suivantes sont nécessaires pour le projet :
 
 pipeline
 ========
+.. list-table::
+   :widths: 50 50
+   :align: center
+
+   * - .. image:: image/1.png
+         :alt: Image 1
+         :width: 300px
+     - .. image:: image/2.png
+         :alt: Image 2
+         :width: 300px
 
 
 
