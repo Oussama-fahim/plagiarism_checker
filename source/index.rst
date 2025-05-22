@@ -11,9 +11,9 @@ Bienvenue dans la documentation du projet Détection de plagiat par Intelligence
   - installation
   - pipeline 
   - creation d'une base de donnés vectorielle a partir de llama_parse 
-  - application des approches (recherche hybride)
-  - visualisation des résultat 
+  - application des approches (recherche hybride) 
   - création d'une interface streamlit 
+  - résultat
   - Travaux Futurs
   - conclusion
 
@@ -362,6 +362,221 @@ Conclusion
 ----------
 
 Ce guide constitue une base robuste pour créer une base vectorielle à partir de documents PDF multilingues. Il est facilement extensible pour inclure plus de fichiers, enrichir les métadonnées ou intégrer des systèmes de recherche sémantique avancée.
+
+
+
+Application des Approches de Recherche Hybride
+=============================================
+
+.. contents:: 
+   :depth: 3
+   :local:
+
+Introduction
+------------
+La recherche hybride combine plusieurs techniques de similarité textuelle pour détecter le plagiat à différents niveaux :
+
+1. **Recherche exacte** : Détection de copies mot-à-mot
+2. **Similarité sémantique** : Identification des paraphrases
+3. **Analyse multilingue** : Comparaison entre langues (FR↔EN)
+
+Architecture Principale
+----------------------
+
+.. mermaid::
+   flowchart TD
+       A[Input] --> B{Recherche Hybride}
+       B --> C[Exact Match]
+       B --> D[Semantic Search]
+       B --> E[Cross-Langue]
+       C --> F[Résultats]
+       D --> F
+       E --> F
+
+Fonctions Clés
+--------------
+
+check_exact_match()
+~~~~~~~~~~~~~~~~~~~
+.. code-block:: python
+   :linenos:
+   :emphasize-lines: 3-5,12-15
+
+   def check_exact_match(input_text: str, dataset: List[str]) -> List[Tuple[str, float]]:
+       """Vérifie les correspondances exactes avec normalisation avancée"""
+       def normalize(text):
+           text = re.sub(r'[^\w\s]', '', text.strip().lower())
+           return re.sub(r'\s+', ' ', text)
+       
+       normalized_input = normalize(input_text)
+       input_hash = hashlib.md5(normalized_input.encode('utf-8')).hexdigest()
+       
+       for doc in dataset:
+           normalized_doc = normalize(doc)
+           doc_hash = hashlib.md5(normalized_doc.encode('utf-8')).hexdigest()
+           
+           if input_hash == doc_hash:  # Match exact
+               return [(doc, 1.0)]
+           # Similarité textuelle avec SequenceMatcher
+           match_ratio = SequenceMatcher(None, normalized_input, normalized_doc).ratio()
+
+**Explication** :  
+Cette fonction implémente la première couche de la recherche hybride :
+1. Normalisation du texte (minuscules, suppression ponctuation)
+2. Hashing MD5 pour les correspondances exactes
+3. ``SequenceMatcher`` pour les similarités textuelles (>70%)
+4. Détection de segments longs (fenêtres de 8 mots)
+
+translate_text()
+~~~~~~~~~~~~~~~~
+.. code-block:: python
+   :linenos:
+
+   @st.cache_data(ttl=3600)
+   def translate_text(text: str, target_lang: str) -> str:
+       """Traduction intelligente avec gestion des erreurs"""
+       try:
+           if len(text) < 50:  # Ne pas traduire les textes trop courts
+               return text
+               
+           response = ollama.chat(
+               model="llama3.1",
+               messages=[{
+                   "role": "system",
+                   "content": f"Traduis ce texte en {target_lang}..."
+               }],
+               options={'temperature': 0.1}
+           )
+           return response["message"]["content"]
+
+**Rôle** :  
+Permet la composante multilingue de la recherche hybride :
+- Utilise Ollama/Llama3 pour les traductions FR↔EN
+- Cache les résultats pour 1 heure (optimisation performance)
+- Gère les textes courts (ne traduit pas en dessous de 50 caractères)
+
+calculate_similarity()
+~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: python
+   :linenos:
+
+   def calculate_similarity(text1: str, text2: str) -> float:
+       """Calcule la similarité combinée TF-IDF + Cross-Encoder"""
+       # Similarité lexicale (TF-IDF)
+       vectors = tfidf_vectorizer.transform([text1, text2])
+       tfidf_sim = cosine_similarity(vectors[0:1], vectors[1:2])[0][0]
+       
+       # Similarité sémantique (Cross-Encoder)
+       cross_score = cross_encoder.predict([[text1, text2]])[0]
+       
+       return (cross_score * 0.7) + (tfidf_sim * 0.3)  # Combinaison pondérée
+
+**Fonctionnement** :  
+Coeur de l'approche hybride :
+1. **TF-IDF** : Similarité surfacelle (mots-clés, n-grams)
+2. **Cross-Encoder** : Compréhension sémantique profonde
+3. Pondération : 70% sémantique + 30% lexicale
+
+hybrid_search()
+~~~~~~~~~~~~~~~
+.. code-block:: python
+   :linenos:
+   :emphasize-lines: 8-9,15-17,25-27
+
+   def hybrid_search(query: str, dataset: List[str], top_k: int = 10) -> List[Dict[str, Any]]:
+       """Recherche hybride multilingue"""
+       # 1. Détection langue
+       query_lang = detect(query) if len(query) > 20 else 'en'
+       
+       # 2. Recherche exacte
+       exact_matches = check_exact_match(query, dataset)
+       if exact_matches:
+           return [{"match_type": "exact", ...}]
+       
+       # 3. Recherche vectorielle
+       vector_results = vecdb.similarity_search_with_score(query, k=top_k*2)
+       
+       # 4. Recherche multilingue
+       if query_lang == 'fr':
+           translated_query = translate_text(query, 'en')
+           translated_results = vecdb.similarity_search_with_score(translated_query, k=top_k)
+       
+       # Combinaison et filtrage
+       all_results = [...]
+       return sorted(all_results, key=lambda x: x["combined_score"], reverse=True)[:top_k]
+
+**Workflow** :
+1. Orchestre les différentes méthodes de recherche
+2. Combine les résultats natifs et traduits
+3. Applique des pénalités aux résultats traduits (-10%)
+4. Trie par score combiné
+
+analyze_ideas()
+~~~~~~~~~~~~~~~
+.. code-block:: python
+   :linenos:
+
+   def analyze_ideas(input_text: str, matches: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+       """Analyse des similarités conceptuelles entre phrases"""
+       ideas = []
+       sentences = [s.strip() for s in re.split(r'[.!?]', input_text) if len(s.strip().split()) > 5]
+       
+       for match in matches:
+           if match["combined_score"] < 0.4:  # Seuil minimal
+               continue
+           match_sentences = [s.strip() for s in re.split(r'[.!?]', match["content"]) if len(s.strip().split()) > 5]
+           
+           for sent in sentences:
+               for match_sent in match_sentences:
+                   sim_score = calculate_similarity(sent, match_sent)
+                   if sim_score > 0.5:  # Seuil idée similaire
+                       ideas.append({
+                           "source_sentence": sent,
+                           "matched_sentence": match_sent,
+                           "similarity": sim_score
+                       })
+
+**Objectif** :  
+Détecte les plagiat conceptuel en :
+- Découpant le texte en phrases
+- Comparant chaque paire de phrases
+- Gardant les matches >50% de similarité
+- Groupant les idées similaires
+
+Visualisation des Résultats
+---------------------------
+
+create_similarity_network()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: python
+   :linenos:
+
+   def create_similarity_network(matches):
+       """Crée un réseau de similarité interactif"""
+       G = nx.Graph()
+       for i, match in enumerate(matches):
+           G.add_node(f"Source_{i}", color='blue')
+           G.add_node(match['source'], color='red')
+           G.add_edge(f"Source_{i}", match['source'], weight=match['score'])
+       
+       net = Network(height="500px")
+       net.from_nx(G)
+       return net
+
+**Rôle** :  
+Génère une visualisation interactive des connexions entre :
+- Le texte source (nœuds bleus)
+- Les documents trouvés (nœuds rouges)
+- Les arêtes pondérées par le score de similarité
+
+Conclusion
+----------
+Cette approche hybride combine :
+
+- **Précision** : Détection des copies exactes
+- **Nuance** : Compréhension sémantique
+- **Couverure** : Analyse multilingue
+- **Transparence** : Visualisations explicatives
 
 
 
