@@ -159,7 +159,71 @@ pipeline
          :alt: Image 2
          :width: 700px
 
+explication de pipline:
+-----------------------
+Phase 1: Préparation de la Base Vectorielle
+-------------------------------------------
 
+.. list-table::
+   :header-rows: 1
+   :widths: 10 30 60
+
+   * - Étape
+     - Outils/Méthodes
+     - Description
+   * - 1. Extraction
+     - LlamaParse (FR/EN)
+     - Conversion des PDF/DOCX en Markdown propre
+   * - 2. Nettoyage
+     - Regex + Unicode Normalization
+     - Suppression des en-têtes, pieds de page, caractères spéciaux
+   * - 3. Découpage
+     - ``split('\\n\\n')``
+     - Séparation en paragraphes (1 paragraphe = 1 document)
+   * - 4. Embeddings
+     - OllamaEmbeddings (mxbai-embed-large)
+     - Vectorisation des paragraphes
+   * - 5. Stockage
+     - Chroma DB
+     - Indexation avec métadonnées (source, langue)
+   * - 6. Persistance
+     - ``vecdb.persist()``
+     - Sauvegarde locale dans ``philo_db``
+
+Phase 2: Analyse de Plagiat (Frontend/Backend)
+----------------------------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 10 30 60
+
+   * - Étape
+     - Outils/Méthodes
+     - Description
+   * - 1. Input Utilisateur
+     - Streamlit (``file_uploader``/``text_area``)
+     - Support pour texte direct, fichiers, ou URLs
+   * - 2. Pré-processing
+     - ``langdetect`` + ``spacy``
+     - Détection de langue et nettoyage
+   * - 3. Recherche Hybride
+     - Combinaison de 3 méthodes:
+     - 
+   * - 
+     - • **Exact Match** (MD5 + ``SequenceMatcher``)
+     - Détection de copies mot-à-mot
+   * - 
+     - • **Semantic Search** (Ollama + Cross-Encoder)
+     - Similarité conceptuelle (seuil: 0.4-1.0)
+   * - 
+     - • **Multilingue** (Traduction via Llama3)
+     - Comparaison FR↔EN
+   * - 4. Post-Traitement
+     - ``networkx`` + ``pyvis``
+     - Génération du réseau de similarité
+   * - 5. Rapport
+     - JSON + Streamlit
+     - Export des résultats détaillés
 
 
 Travaux Futurs
