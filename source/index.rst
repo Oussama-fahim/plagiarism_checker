@@ -153,7 +153,7 @@ pipeline
    :align: center
 
    * - .. image:: image/1.png
-         :alt: Image 1
+         :alt: PIPLINE 
          :width: 700px
      - .. image:: image/2.png
          :alt: Image 2
@@ -382,13 +382,9 @@ La recherche hybride combine plusieurs techniques de similarité textuelle pour 
 
 Architecture Principale
 ----------------------
-.. list-table::
-   :widths: 200 0
-   :align: center
-
-   * - .. image:: image/3.png
-         :alt: Image 1
-         :width: 700px
+.. image:: image/3.png
+   :alt: architecture de la recherche hybride
+   :width: 400px
 
 
 Fonctions Clés
