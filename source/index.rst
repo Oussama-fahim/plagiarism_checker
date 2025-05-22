@@ -581,7 +581,7 @@ Cette approche hybride combine :
 création d'une interface streamlit 
 ==================================
 
-Ce document détaille la conception et l'implémentation d'une interface Streamlit complète pour une application de détection de plagiat AI-powered.
+Cette partie détaille la conception et l'implémentation d'une interface Streamlit complète pour une application de détection de plagiat AI-powered.
 
 .. contents:: Table des Matières
    :depth: 3
@@ -887,11 +887,97 @@ Les techniques présentées peuvent être adaptées pour tout type d'application
 
 
 
-Travaux Futurs
+Travaux futurs
 ==============
 
-1. Améliorer les modèles en utilisant plus de données.
-2. Étendre la classification pour inclure d'autres comportements (vapoter, boire, etc.).
+Cette partie présente les améliorations potentielles pour la future version du système de détection de plagiat.
+
+1. Améliorations des Algorithmes
+--------------------------------
+
+1.1. Intégration de Modèles Multilingues Avancés
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Ajout de modèles spécialisés pour d'autres langues (espagnol, allemand, chinois)
+- Implémentation d'un système de détection automatique de langue plus robuste
+- Optimisation des traductions avec des modèles dédiés (NLLB, DeepL)
+
+1.2. Amélioration des Scores de Similarité
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Combinaison de plusieurs métriques (BERTScore, ROUGE, BLEU)
+- Ajout d'un système de pondération dynamique basé sur le contexte
+- Intégration de modèles de similarité spécifiques aux domaines (scientifique, juridique)
+
+2. Fonctionnalités Avancées
+---------------------------
+
+2.1. Analyse Temporelle
+~~~~~~~~~~~~~~~~~~~~~~~
+- Détection des variations stylistiques dans le texte
+- Identification des ajouts/modifications successifs
+- Reconstruction de l'historique d'écriture
+
+2.2. Détection de Paraphrase Sophistiquée
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Modèles spécifiques pour identifier les paraphrases avancées
+- Détection des modifications structurelles (changement d'ordre des idées)
+- Analyse des patterns de réécriture
+
+3. Interface Utilisateur
+------------------------
+
+3.1. Tableau de Bord Analytique
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Visualisations interactives des résultats
+- Comparaison avec les soumissions précédentes
+- Suivi des améliorations dans les révisions
+
+3.2. Outils d'Aide à la Réécriture
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Suggestions de reformulation originales
+- Générateur de citations automatiques
+- Identification des passages à risque
+
+4. Infrastructure Technique
+---------------------------
+
+4.1. Optimisation des Performances
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Implémentation d'un système de cache distribué
+- Prétraitement asynchrone des documents
+- Indexation incrémentielle
+
+4.2. Extension des Bases de Référence
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Intégration de nouvelles sources académiques
+- Connexion aux bases de données ouvertes
+- Mise à jour automatique du corpus de référence
+
+5. Intégrations Système
+-----------------------
+
+5.1. API Universelle
+~~~~~~~~~~~~~~~~~~~~
+- Développement d'une API RESTful complète
+- Intégration avec les LMS (Moodle, Canvas)
+- Connecteurs pour les outils d'édition (Word, Google Docs)
+
+5.2. Modules Spécialisés
+~~~~~~~~~~~~~~~~~~~~~~~~
+- Version pour l'édition scientifique
+- Module dédié à l'éducation
+- Solution pour les éditeurs professionnels
+
+Perspectives à Long Terme
+-------------------------
+
+- Analyse multimodale (texte + images + formules)
+- Détection cross-média (vidéos, podcasts)
+- Système prédictif de risque de plagiat
+- Blockchain pour la traçabilité des sources
+
+Ces améliorations permettront de positionner l'outil comme une solution complète de vérification d'intégrité académique et professionnelle.
+
+
 
 Conclusion
 ==========
