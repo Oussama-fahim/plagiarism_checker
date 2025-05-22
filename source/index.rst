@@ -382,16 +382,14 @@ La recherche hybride combine plusieurs techniques de similarité textuelle pour 
 
 Architecture Principale
 ----------------------
+.. list-table::
+   :widths: 200 0
+   :align: center
 
-.. mermaid::
-   flowchart TD
-       A[Input] --> B{Recherche Hybride}
-       B --> C[Exact Match]
-       B --> D[Semantic Search]
-       B --> E[Cross-Langue]
-       C --> F[Résultats]
-       D --> F
-       E --> F
+   * - .. image:: image/3.png
+         :alt: Image 1
+         :width: 700px
+
 
 Fonctions Clés
 --------------
