@@ -10,7 +10,7 @@ Bienvenue dans la documentation du projet Détection de plagiat par Intelligence
   - objectifs du projet
   - installation
   - pipeline 
-  - creation d'une base de donnés a partir de llama_parse 
+  - creation d'une base de donnés vectorielle a partir de llama_parse 
   - application des approches (recherche hybride)
   - visualisation des résultat 
   - création d'une interface streamlit 
@@ -224,6 +224,144 @@ Phase 2: Analyse de Plagiat (Frontend/Backend)
    * - 5. Rapport
      - JSON + Streamlit
      - Export des résultats détaillés
+
+Création d'une Base de Données Vectorielle avec LlamaParse
+=========================================================
+
+Ce guide explique étape par étape comment transformer des documents PDF en base vectorielle utilisable pour la détection de plagiat.
+
+
+
+Étape 1: Installation des Dépendances
+-------------------------------------
+
+.. code-block:: python
+   :linenos:
+
+   import os
+   from llama_parse import LlamaParse
+   from llama_parse.base import ResultType
+   from langchain.text_splitter import RecursiveCharacterTextSplitter
+   from langchain.vectorstores import Chroma
+   from langchain.embeddings import HuggingFaceEmbeddings
+   from langchain_core.documents import Document
+   from llama_cloud_services.parse.utils import Language
+   from langchain_community.embeddings.ollama import OllamaEmbeddings
+
+**Explication** :  
+Importation des librairies essentielles :
+- ``llama_parse`` pour l'extraction de documents
+- ``langchain`` pour la gestion des vecteurs
+- ``OllamaEmbeddings`` pour les embeddings
+
+Étape 2: Configuration de l'API LlamaParse
+------------------------------------------
+
+.. code-block:: python
+   :linenos:
+
+   os.environ["LLAMA_CLOUD_API_KEY"] = "llx-a2C7FgYfP1hzX3pXuvtdaNmexAqsuRnJIJ2G6MjbBrfuS3QY"
+   
+   parser_fr = LlamaParse(
+       result_type=ResultType.MD, 
+       language=Language.FRENCH
+   )
+   parser_en = LlamaParse(
+       result_type=ResultType.MD,
+       language=Language.ENGLISH
+   )
+
+**Explication** :  
+Configuration des parseurs multilingues avec :
+- Clé API pour LlamaCloud
+- Sortie en Markdown (``ResultType.MD``)
+- Support français/anglais
+
+Étape 3: Extraction du Contenu PDF
+----------------------------------
+
+.. code-block:: python
+   :linenos:
+
+   import nest_asyncio
+   nest_asyncio.apply()
+
+   pdf_files = [("philosophie.pdf", parser_fr)]
+   
+   with open("plagia_data.md", 'w', encoding='utf-8') as f:
+       for file_name, parser in pdf_files:
+           print(f"Traitement de {file_name}...")
+           documents = parser.load_data(file_name)
+           f.write(f"# Contenu extrait de : {file_name}\\n\\n")
+           for doc in documents:
+               f.write(doc.text + "\\n\\n")
+
+**Explication** :  
+- Activation du support asynchrone (requis par LlamaParse)
+- Conversion du PDF en Markdown structuré
+- Sauvegarde dans un fichier intermédiaire
+
+Étape 4: Préparation des Données
+--------------------------------
+
+.. code-block:: python
+   :linenos:
+
+   with open("plagia_data.md", encoding='utf-8') as f:
+       markdown_content = f.read()
+   
+   paragraphs = [p.strip() for p in markdown_content.split('\\n\\n') if p.strip()]
+   documents = [Document(page_content=paragraph) for paragraph in paragraphs]
+
+**Explication** :  
+- Découpage par paragraphes (double saut de ligne)
+- Création d'objets ``Document`` pour LangChain
+
+Étape 5: Génération des Embeddings
+----------------------------------
+
+.. code-block:: python
+   :linenos:
+
+   embeddings = OllamaEmbeddings(model="mxbai-embed-large:latest")
+   
+   vecdb = Chroma.from_documents(
+       documents=documents,
+       embedding=embeddings,
+       persist_directory="philo_db",
+       collection_name="rag-chroma"
+   )
+   vecdb.persist()
+
+**Explication** :  
+- Initialisation du modèle d'embedding Ollama
+- Création de la base Chroma avec :
+  - Persistance locale (``philo_db``)
+  - Nom de collection personnalisé
+
+Résultats
+---------
+
+.. code-block:: text
+
+   Opération terminée avec succès:
+   - 914 paragraphes traités
+   - Base vectorielle sauvegardée dans: philo_db
+
+Diagramme du Processus
+----------------------
+
+.. image:: _static/pipeline_llamaparse.png
+   :align: center
+   :width: 800
+   :alt: Workflow LlamaParse → Chroma DB
+
+Notes Techniques
+---------------
+- Format des embeddings : 1024 dimensions (mxbai-embed-large)
+- Taille moyenne par paragraphe : 150-300 mots
+- Métadonnées incluses : source, langue
+
 
 
 Travaux Futurs
