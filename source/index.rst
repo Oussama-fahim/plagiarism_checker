@@ -578,6 +578,312 @@ Cette approche hybride combine :
 - **Couverure** : Analyse multilingue
 - **Transparence** : Visualisations explicatives
 
+création d'une interface streamlit 
+==================================
+
+Ce document détaille la conception et l'implémentation d'une interface Streamlit complète pour une application de détection de plagiat AI-powered.
+
+.. contents:: Table des Matières
+   :depth: 3
+   :local:
+
+Introduction
+------------
+
+L'interface Streamlit a été conçue pour offrir une expérience utilisateur riche avec :
+
+- Un dashboard interactif
+- Des visualisations de données avancées
+- Une analyse en temps réel
+- Un design responsive et moderne
+
+
+Configuration Initiale
+----------------------
+
+.. code-block:: python
+
+    import streamlit as st
+    st.set_page_config(
+        layout="wide", 
+        page_title="🔍 AI Plagiarism Sentinel Pro", 
+        page_icon="🔍"
+    )
+
+Explications :
+- ``layout="wide"`` permet d'utiliser toute la largeur de l'écran
+- Personnalisation du titre et de l'icône pour une identité visuelle
+
+Initialisation des Modèles
+--------------------------
+
+.. code-block:: python
+
+    @st.cache_resource(show_spinner=False)
+    def initialize_system():
+        # Initialisation des embeddings
+        embeddings = OllamaEmbeddings(
+            model="mxbai-embed-large:latest",
+            temperature=0.01,
+            top_k=50
+        )
+        
+        # Initialisation de la base vectorielle
+        vecdb = Chroma(
+            persist_directory="philo_db",
+            embedding_function=embeddings,
+            collection_name="rag-chroma"
+        )
+
+Explications :
+- ``@st.cache_resource`` optimise les performances en cachant les ressources initialisées
+- La fonction charge les modèles NLP et la base de données vectorielle
+
+--------------------
+Interface Utilisateur
+--------------------
+
+En-tête Personnalisé
+--------------------
+
+.. code-block:: python
+
+    def load_assets():
+        try:
+            response = requests.get("https://images.unsplash.com/photo-1620712943543-bcc4688e7485")
+            banner = Image.open(BytesIO(response.content))
+            return banner
+        except:
+            return None
+
+    banner_image = load_assets()
+    if banner_image:
+        st.image(banner_image, use_column_width=True)
+    else:
+        st.markdown("""
+        <div class="header">
+            <h1>🔍 AI Plagiarism Sentinel Pro</h1>
+        </div>
+        """, unsafe_allow_html=True)
+
+Explications :
+- Téléchargement dynamique d'une bannière
+- Fallback sur un en-tête HTML si l'image n'est pas disponible
+
+Sidebar Configurable
+--------------------
+
+.. code-block:: python
+
+    with st.sidebar:
+        st.title("⚙️ Paramètres Experts")
+        
+        with st.expander("🔍 Options de Recherche", expanded=True):
+            analysis_mode = st.selectbox(
+                "Mode d'analyse",
+                ["DeepScan Pro", "Rapide", "Manuel Expert"]
+            )
+            
+            sensitivity = st.slider(
+                "Niveau de sensibilité",
+                1, 10, 8
+            )
+
+Explications :
+- Organisation des contrôles dans des expanders
+- Utilisation de widgets Streamlit variés (selectbox, slider)
+
+Zone de Saisie Multimode
+------------------------
+
+.. code-block:: python
+
+    input_method = st.radio(
+        "Source d'entrée",
+        ["📝 Texte direct", "📂 Fichier", "🌐 URL"],
+        horizontal=True
+    )
+    
+    if input_method == "📂 Fichier":
+        uploaded_file = st.file_uploader(
+            "Téléversez un document",
+            type=["txt", "pdf", "docx"]
+        )
+
+Explications :
+- Interface unifiée pour différentes méthodes de saisie
+- Traitement spécifique pour chaque type d'entrée
+
+Visualisations Avancées
+-----------------------
+
+Cartes de Résultats
+-------------------
+
+.. code-block:: python
+
+    def display_match_card(match):
+        with st.container():
+            st.markdown(f"""
+            <div class="{'exact-match' if match['match_type'] == 'exact' else 'partial-match'}">
+                <h3>{match['match_type'].capitalize()} - Score: {match['combined_score']*100:.1f}%</h3>
+                <p><strong>Source:</strong> {match['metadata'].get('source', 'Inconnue')}</p>
+            </div>
+            """, unsafe_allow_html=True)
+
+Explications :
+- Utilisation de HTML/CSS pour des cartes stylisées
+- Classes CSS dynamiques en fonction du type de correspondance
+
+Réseau de Similarité
+--------------------
+
+.. code-block:: python
+
+    def create_similarity_network(matches):
+        G = nx.Graph()
+        for i, match in enumerate(matches):
+            G.add_node(f"Source_{i}", size=15, color='blue')
+            G.add_edge(f"Source_{i}", match['metadata'].get('source', f"Doc_{i}"), 
+                      weight=match['combined_score'])
+        
+        net = Network(height="500px", width="100%")
+        net.from_nx(G)
+        return net
+
+Explications :
+- Utilisation de NetworkX pour la création du graphe
+- Intégration avec PyVis pour le rendu interactif
+
+---------------------
+Gestion des Données
+-------------------
+
+Cache et Performance
+--------------------
+
+.. code-block:: python
+
+    @st.cache_data(ttl=3600)
+    def translate_text(text: str, target_lang: str) -> str:
+        # Fonction de traduction
+        return translated_text
+
+Explications :
+- ``@st.cache_data`` pour cacher les résultats coûteux
+- TTL (Time-To-Live) de 1 heure pour les traductions
+
+Traitement des Fichiers
+-----------------------
+
+.. code-block:: python
+
+    if uploaded_file.type == "application/pdf":
+        pdf_reader = PyPDF2.PdfReader(uploaded_file)
+        text = "\n".join([page.extract_text() for page in pdf_reader.pages])
+    elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        text = docx2txt.process(uploaded_file)
+
+Explications :
+- Support multi-format (PDF, DOCX, etc.)
+- Extraction robuste du texte
+
+------------------
+Design Avancé
+-------------
+
+CSS Personnalisé
+----------------
+
+.. code-block:: python
+
+    def apply_custom_css():
+        css = """
+        <style>
+            .header {
+                background: linear-gradient(135deg, #434343 0%, #000000 100%);
+                color: white;
+                padding: 2rem;
+                border-radius: 10px;
+            }
+            .exact-match { 
+                border-left: 6px solid #ef4444; 
+                background-color: rgba(239, 68, 68, 0.05);
+            }
+        </style>
+        """
+        st.markdown(css, unsafe_allow_html=True)
+
+Explications :
+- Styles CSS intégrés directement dans Streamlit
+- Utilisation de gradients et d'effets modernes
+
+Mise en Page
+------------
+
+.. code-block:: python
+
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("Score maximal", f"{score:.1f}%")
+    with col2:
+        st.metric("Correspondances", count)
+
+Explications :
+- Layout multi-colonnes pour une organisation optimale
+- Widgets de métriques pour les KPI
+
+--------------------
+Fonctionnalités Avancées
+------------------------
+
+Onglets Interactifs
+-------------------
+
+.. code-block:: python
+
+    tab1, tab2 = st.tabs(["📊 Dashboard", "🔍 Correspondances"])
+    with tab1:
+        st.plotly_chart(fig)
+    with tab2:
+        for match in matches:
+            display_match_card(match)
+
+Explications :
+- Navigation par onglets pour organiser le contenu
+- Contenu dynamique dans chaque onglet
+
+Génération de Rapports
+----------------------
+
+.. code-block:: python
+
+    def generate_full_report(results):
+        return json.dumps({
+            "metadata": {
+                "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+                "total_matches": len(results.get('all_matches', []))
+            },
+            "results": {
+                "highest_score": results.get('highest_score', 0),
+            }
+        }, indent=2)
+
+Explications :
+- Format JSON structuré
+- Téléchargement direct via Streamlit
+
+--------------------
+Conclusion
+----------
+
+Cette interface Streamlit combine :
+- Des composants UI riches
+- Des visualisations interactives
+- Une gestion efficace des données
+- Un design moderne personnalisable
+
+Les techniques présentées peuvent être adaptées pour tout type d'application data-centric.
 
 
 
