@@ -4,6 +4,9 @@ Documentation du projet IA de plagiarism checker
 
 Bienvenue dans la documentation du projet Détection de plagiat par Intelligence Artificielle à l'aide de RAG et d'analyse sémantique avancée.Ce document détaille les méthodologies, les outils utilisés, ainsi que les résultats obtenus pour identifier les cas de plagiat, qu’ils soient exacts, paraphrasés ou sémantiquement similaires.L’objectif de ce projet est de développer un système de détection robuste en combinant plusieurs approches
 
+-Préparé par : Oussama fahim et fatima el fadili 
+-Encadé par M.hajji
+
 **Table des matières**
 
   - introduction
