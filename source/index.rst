@@ -885,6 +885,9 @@ Cette interface Streamlit combine :
 
 Les techniques présentées peuvent être adaptées pour tout type d'application data-centric.
 
+resultas
+========
+
 
 
 Travaux futurs
