@@ -441,7 +441,7 @@ Par ailleurs, la fonction vérifie la présence de segments longs (fenêtres de 
    :linenos:
 
    @st.cache_data(ttl=3600, show_spinner=False)
-def translate_text(text: str, target_lang: str) -> str:
+   def translate_text(text: str, target_lang: str) -> str:
     """Traduction intelligente avec gestion des erreurs"""
     try:
         if len(text) < 50:  # Ne pas traduire les textes trop courts
@@ -459,6 +459,7 @@ def translate_text(text: str, target_lang: str) -> str:
     except Exception as e:
         st.warning(f"Traduction partielle: {str(e)}")
         return text
+ 
 
 *Rôle* :  
 
