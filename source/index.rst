@@ -156,11 +156,9 @@ pipeline
          :alt: Image 2
          :width: 700px
 
-explication de pipline:
------------------------
+**explication de pipline:**
 
-Phase 1: Préparation de la Base Vectorielle
-___________________________________________
+*Phase 1: Préparation de la Base Vectorielle*
 
 .. list-table::
    :header-rows: 1
@@ -188,8 +186,7 @@ ___________________________________________
      - ``vecdb.persist()``
      - Sauvegarde locale dans ``philo_db``
 
-Phase 2: Analyse de Plagiat (Frontend/Backend)
-----------------------------------------------
+*Phase 2: Analyse de Plagiat (Frontend/Backend)*
 
 .. list-table::
    :header-rows: 1
@@ -233,8 +230,8 @@ Ce guide fournit une procédure complète pour transformer un ou plusieurs fichi
    :depth: 2
    :local:
 
-Étape 1 : Installation des Dépendances
---------------------------------------
+**Étape 1 : Installation des Dépendances**
+
 
 Cette première étape consiste à importer l'ensemble des librairies nécessaires au bon fonctionnement du pipeline. 
 
@@ -256,8 +253,7 @@ Les modules importés remplissent des rôles spécifiques :
 - `langchain` permet de gérer la transformation du texte en vecteurs ainsi que leur stockage dans une base.
 - `OllamaEmbeddings` fournit un modèle d'embedding performant pour convertir du texte en vecteurs numériques.
 
-Étape 2 : Configuration de l'API LlamaParse
--------------------------------------------
+**Étape 2 : Configuration de l'API LlamaParse**
 
 Avant de lancer l'extraction, il est nécessaire de configurer LlamaParse avec une clé API valide. On peut également spécifier la langue du document pour améliorer la précision de l’analyse.
 
@@ -277,8 +273,7 @@ Avant de lancer l'extraction, il est nécessaire de configurer LlamaParse avec u
 
 Deux parseurs sont initialisés ici : un pour les documents en français et un autre pour ceux en anglais. Le format de sortie sélectionné est le Markdown (`ResultType.MD`), ce qui permet de conserver la structure logique du document original (titres, paragraphes, listes, etc.).
 
-Étape 3 : Extraction du Contenu PDF
------------------------------------
+**Étape 3 : Extraction du Contenu PDF**
 
 On procède ensuite à l’extraction effective du contenu des fichiers PDF. LlamaParse utilisant des appels asynchrones, l’environnement doit être adapté pour gérer cela correctement.
 
@@ -300,8 +295,7 @@ On procède ensuite à l’extraction effective du contenu des fichiers PDF. Lla
 
 Chaque fichier est traité indépendamment. Le texte extrait est structuré et stocké dans un fichier Markdown intermédiaire (`plagia_data.md`). Cela facilite les traitements ultérieurs, notamment pour la segmentation en paragraphes ou sections.
 
-Étape 4 : Préparation des Données
----------------------------------
+**Étape 4 : Préparation des Données**
 
 Une fois le contenu extrait, il est lu depuis le fichier Markdown et segmenté en paragraphes. Ces derniers seront convertis en objets `Document`, reconnus par LangChain.
 
@@ -316,8 +310,7 @@ Une fois le contenu extrait, il est lu depuis le fichier Markdown et segmenté e
 
 Chaque double saut de ligne est interprété comme une séparation logique entre les idées ou blocs de contenu. Cette segmentation est cruciale pour que les embeddings soient cohérents et représentatifs du contenu.
 
-Étape 5 : Génération des Embeddings
------------------------------------
+**Étape 5 : Génération des Embeddings**
 
 Cette étape est centrale : elle convertit le texte en vecteurs numériques à l’aide d’un modèle d’embedding compatible avec LangChain. Ces vecteurs sont ensuite stockés dans une base Chroma persistante.
 
@@ -336,8 +329,7 @@ Cette étape est centrale : elle convertit le texte en vecteurs numériques à l
 
 Le modèle utilisé ici, `mxbai-embed-large:latest`, encode chaque paragraphe en un vecteur dense de 1024 dimensions. Ces vecteurs sont ensuite indexés et sauvegardés localement dans un dossier nommé `philo_db`. La collection `rag-chroma` permet de regrouper les documents selon un même thème ou usage.
 
-Résultats
----------
+**Résultats**
 
 À l'issue de ce processus, une base vectorielle est constituée à partir du contenu textuel extrait.
 
@@ -356,8 +348,7 @@ Notes Techniques
 - **Taille moyenne des paragraphes** : entre 150 et 300 mots, ce qui est optimal pour les modèles d’embedding modernes.
 - **Métadonnées** : il est possible d’ajouter des métadonnées à chaque `Document` (par exemple la langue, l’origine du fichier, la section du document, etc.) pour des filtres ou recherches avancées.
 
-Conclusion
-----------
+**Conclusion**
 
 Ce guide constitue une base robuste pour créer une base vectorielle à partir de documents PDF multilingues. Il est facilement extensible pour inclure plus de fichiers, enrichir les métadonnées ou intégrer des systèmes de recherche sémantique avancée.
 
@@ -370,16 +361,15 @@ Application des Approches de Recherche Hybride
    :depth: 3
    :local:
 
-Introduction
-------------
+**Introduction**
+
 La recherche hybride combine plusieurs techniques de similarité textuelle pour détecter le plagiat à différents niveaux :
 
 1. **Recherche exacte** : Détection de copies mot-à-mot
 2. **Similarité sémantique** : Identification des paraphrases
 3. **Analyse multilingue** : Comparaison entre langues (FR↔EN)
 
-Architecture Principale
-----------------------
+**Architecture Principale**
 
 
 .. image:: image/3.png
@@ -387,11 +377,9 @@ Architecture Principale
    :width: 400px
 
 
-Fonctions Clés
---------------
+**Fonctions Clés**
 
-check_exact_match()
-~~~~~~~~~~~~~~~~~~~
+*check_exact_match()*
 .. code-block:: python
    :linenos:
    :emphasize-lines: 3-5,12-15
@@ -414,7 +402,7 @@ check_exact_match()
            # Similarité textuelle avec SequenceMatcher
            match_ratio = SequenceMatcher(None, normalized_input, normalized_doc).ratio()
 
-**Explication** : 
+*Explication* : 
 
 Cette fonction implémente la première couche de la recherche hybride :
 
@@ -423,8 +411,8 @@ Cette fonction implémente la première couche de la recherche hybride :
 3. ``SequenceMatcher`` pour les similarités textuelles (>70%)
 4. Détection de segments longs (fenêtres de 8 mots)
 
-translate_text()
-~~~~~~~~~~~~~~~~
+*translate_text()*
+
 .. code-block:: python
    :linenos:
 
@@ -445,7 +433,7 @@ translate_text()
            )
            return response["message"]["content"]
 
-**Rôle** :  
+*Rôle* :  
 
 Permet la composante multilingue de la recherche hybride :
 
@@ -453,8 +441,8 @@ Permet la composante multilingue de la recherche hybride :
 - Cache les résultats pour 1 heure (optimisation performance)
 - Gère les textes courts (ne traduit pas en dessous de 50 caractères)
 
-calculate_similarity()
-~~~~~~~~~~~~~~~~~~~~~~
+*calculate_similarity()*
+
 .. code-block:: python
    :linenos:
 
@@ -469,7 +457,7 @@ calculate_similarity()
        
        return (cross_score * 0.7) + (tfidf_sim * 0.3)  # Combinaison pondérée
 
-**Fonctionnement** :  
+*Fonctionnement* :  
 
 Coeur de l'approche hybride :
 
@@ -477,8 +465,8 @@ Coeur de l'approche hybride :
 2. **Cross-Encoder** : Compréhension sémantique profonde
 3. Pondération : 70% sémantique + 30% lexicale
 
-hybrid_search()
-~~~~~~~~~~~~~~~
+*hybrid_search()*
+
 .. code-block:: python
    :linenos:
    :emphasize-lines: 8-9,15-17,25-27
@@ -505,15 +493,15 @@ hybrid_search()
        all_results = [...]
        return sorted(all_results, key=lambda x: x["combined_score"], reverse=True)[:top_k]
 
-**Workflow** :
+*Workflow* :
 
 1. Orchestre les différentes méthodes de recherche
 2. Combine les résultats natifs et traduits
 3. Applique des pénalités aux résultats traduits (-10%)
 4. Trie par score combiné
 
-analyze_ideas()
-~~~~~~~~~~~~~~~
+*analyze_ideas()*
+
 .. code-block:: python
    :linenos:
 
@@ -537,7 +525,7 @@ analyze_ideas()
                            "similarity": sim_score
                        })
 
-**Objectif** :  
+*Objectif* :  
 Détecte les plagiat conceptuel en :
 
 - Découpant le texte en phrases
@@ -545,11 +533,10 @@ Détecte les plagiat conceptuel en :
 - Gardant les matches >50% de similarité
 - Groupant les idées similaires
 
-Visualisation des Résultats
----------------------------
+**Visualisation des Résultats**
 
-create_similarity_network()
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*create_similarity_network()*
+
 .. code-block:: python
    :linenos:
 
@@ -565,15 +552,15 @@ create_similarity_network()
        net.from_nx(G)
        return net
 
-**Rôle** :  
+*Rôle* :  
 Génère une visualisation interactive des connexions entre :
 
 - Le texte source (nœuds bleus)
 - Les documents trouvés (nœuds rouges)
 - Les arêtes pondérées par le score de similarité
 
-Conclusion
-----------
+**Conclusion**
+
 Cette approche hybride combine :
 
 - **Précision** : Détection des copies exactes
@@ -590,8 +577,7 @@ Cette partie détaille la conception et l'implémentation d'une interface Stream
    :depth: 3
    :local:
 
-Introduction
-------------
+**Introduction**
 
 L'interface Streamlit a été conçue pour offrir une expérience utilisateur riche avec :
 
@@ -601,8 +587,7 @@ L'interface Streamlit a été conçue pour offrir une expérience utilisateur ri
 - Un design responsive et moderne
 
 
-Configuration Initiale
-----------------------
+**Configuration Initiale**
 
 .. code-block:: python
 
@@ -613,13 +598,12 @@ Configuration Initiale
         page_icon="🔍"
     )
 
-Explications :
-~~~~~~~~~~~~~~
+*Explications :*
+
 - ``layout="wide"`` permet d'utiliser toute la largeur de l'écran
 - Personnalisation du titre et de l'icône pour une identité visuelle
 
-Initialisation des Modèles
---------------------------
+**Initialisation des Modèles**
 
 .. code-block:: python
 
@@ -639,8 +623,8 @@ Initialisation des Modèles
             collection_name="rag-chroma"
         )
 
-Explications :
-~~~~~~~~~~~~~~
+*Explications :*
+
 - ``@st.cache_resource`` optimise les performances en cachant les ressources initialisées
 - La fonction charge les modèles NLP et la base de données vectorielle
 
