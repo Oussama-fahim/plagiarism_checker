@@ -9,16 +9,17 @@ Bienvenue dans la documentation du projet Détection de plagiat par Intelligence
 
 Table des matières
 ------------------
-  - `Introduction <index.html#id1>`_
-  - `Objectifs du projet <index.html#id2>`_
-  - `Installation <index.html#id3>`_
-  - `Pipeline <index.html#id4>`_
-  - `Creation d'une base de donnés vectorielle <index.html#id5>`_
-  - `Application des approches (recherche hybride) <index.html#id6>`_
-  - `Création d'une interface streamlit <index.html#id7>`_ 
-  - `Résultat <index.html#id8>`_
-  - `Travaux Futurs <index.html#id9>`_
-  - `Conclusion <index.html#id10>`_
+
+- `Introduction <index.html#id1>`_
+- `Objectifs du projet <index.html#id2>`_
+- `Installation <index.html#id3>`_
+- `Pipeline <index.html#id4>`_
+- `Creation d'une base de donnés vectorielle <index.html#id5>`_
+- `Application des approches (recherche hybride) <index.html#id6>`_
+- `Création d'une interface streamlit <index.html#id7>`_ 
+- `Résultat <index.html#id8>`_
+- `Travaux Futurs <index.html#id9>`_
+- `Conclusion <index.html#id10>`_
 
 Introduction
 ============
