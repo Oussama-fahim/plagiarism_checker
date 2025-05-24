@@ -6,8 +6,9 @@ Bienvenue dans la documentation du projet Détection de plagiat par Intelligence
 
 Préparé par :
 -------------
-  **Oussama Fahim**
-  **Fatima el Fadili**
+  **-Oussama Fahim**
+
+  **-Fatima el Fadili**
 
 Encadé par :
 ------------
