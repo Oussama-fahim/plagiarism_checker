@@ -341,12 +341,11 @@ Le modèle utilisé ici, `mxbai-embed-large:latest`, encode chaque paragraphe en
 
 Cette base peut désormais être utilisée pour la recherche sémantique, la détection de plagiat ou l’implémentation d’un système RAG (Retrieval-Augmented Generation).
 
-Notes Techniques
-----------------
+**Notes Techniques**
 
-- **Format des embeddings** : chaque paragraphe est transformé en un vecteur de 1024 dimensions, ce qui garantit une bonne expressivité sémantique.
-- **Taille moyenne des paragraphes** : entre 150 et 300 mots, ce qui est optimal pour les modèles d’embedding modernes.
-- **Métadonnées** : il est possible d’ajouter des métadonnées à chaque `Document` (par exemple la langue, l’origine du fichier, la section du document, etc.) pour des filtres ou recherches avancées.
+- *Format des embeddings* : chaque paragraphe est transformé en un vecteur de 1024 dimensions, ce qui garantit une bonne expressivité sémantique.
+- *Taille moyenne des paragraphes* : entre 150 et 300 mots, ce qui est optimal pour les modèles d’embedding modernes.
+- *Métadonnées* : il est possible d’ajouter des métadonnées à chaque `Document` (par exemple la langue, l’origine du fichier, la section du document, etc.) pour des filtres ou recherches avancées.
 
 **Conclusion**
 
@@ -379,7 +378,8 @@ La recherche hybride combine plusieurs techniques de similarité textuelle pour 
 
 **Fonctions Clés**
 
-*check_exact_match()*
+**check_exact_match()**
+
 .. code-block:: python
    :linenos:
    :emphasize-lines: 3-5,12-15
@@ -411,7 +411,7 @@ Cette fonction implémente la première couche de la recherche hybride :
 3. ``SequenceMatcher`` pour les similarités textuelles (>70%)
 4. Détection de segments longs (fenêtres de 8 mots)
 
-*translate_text()*
+**translate_text()**
 
 .. code-block:: python
    :linenos:
@@ -441,7 +441,7 @@ Permet la composante multilingue de la recherche hybride :
 - Cache les résultats pour 1 heure (optimisation performance)
 - Gère les textes courts (ne traduit pas en dessous de 50 caractères)
 
-*calculate_similarity()*
+**calculate_similarity()**
 
 .. code-block:: python
    :linenos:
@@ -465,7 +465,7 @@ Coeur de l'approche hybride :
 2. **Cross-Encoder** : Compréhension sémantique profonde
 3. Pondération : 70% sémantique + 30% lexicale
 
-*hybrid_search()*
+**hybrid_search()**
 
 .. code-block:: python
    :linenos:
@@ -500,7 +500,7 @@ Coeur de l'approche hybride :
 3. Applique des pénalités aux résultats traduits (-10%)
 4. Trie par score combiné
 
-*analyze_ideas()*
+**analyze_ideas()**
 
 .. code-block:: python
    :linenos:
@@ -535,7 +535,7 @@ Détecte les plagiat conceptuel en :
 
 **Visualisation des Résultats**
 
-*create_similarity_network()*
+**create_similarity_network()**
 
 .. code-block:: python
    :linenos:
@@ -563,19 +563,15 @@ Génère une visualisation interactive des connexions entre :
 
 Cette approche hybride combine :
 
-- **Précision** : Détection des copies exactes
-- **Nuance** : Compréhension sémantique
-- **Couverure** : Analyse multilingue
-- **Transparence** : Visualisations explicatives
+- *Précision* : Détection des copies exactes
+- *Nuance* : Compréhension sémantique
+- *Couverure* : Analyse multilingue
+- *Transparence* : Visualisations explicatives
 
 création d'une interface streamlit 
 ==================================
 
 Cette partie détaille la conception et l'implémentation d'une interface Streamlit complète pour une application de détection de plagiat AI-powered.
-
-.. contents:: Table des Matières
-   :depth: 3
-   :local:
 
 **Introduction**
 
@@ -602,7 +598,6 @@ L'interface Streamlit a été conçue pour offrir une expérience utilisateur ri
 
 - ``layout="wide"`` permet d'utiliser toute la largeur de l'écran
 - Personnalisation du titre et de l'icône pour une identité visuelle
-
 **Initialisation des Modèles**
 
 .. code-block:: python
@@ -628,12 +623,9 @@ L'interface Streamlit a été conçue pour offrir une expérience utilisateur ri
 - ``@st.cache_resource`` optimise les performances en cachant les ressources initialisées
 - La fonction charge les modèles NLP et la base de données vectorielle
 
---------------------
-Interface Utilisateur
---------------------
+**Interface Utilisateur**
 
-En-tête Personnalisé
---------------------
+  **- En-tête Personnalisé**
 
 .. code-block:: python
 
@@ -655,13 +647,12 @@ En-tête Personnalisé
         </div>
         """, unsafe_allow_html=True)
 
-Explications :
-~~~~~~~~~~~~~~
+*Explications :*
+
 - Téléchargement dynamique d'une bannière
 - Fallback sur un en-tête HTML si l'image n'est pas disponible
 
-Sidebar Configurable
---------------------
+  **-Sidebar Configurable**
 
 .. code-block:: python
 
@@ -679,13 +670,12 @@ Sidebar Configurable
                 1, 10, 8
             )
 
-Explications :
-~~~~~~~~~~~~~~
+*Explications :*
+
 - Organisation des contrôles dans des expanders
 - Utilisation de widgets Streamlit variés (selectbox, slider)
 
-Zone de Saisie Multimode
-------------------------
+ **- Zone de Saisie Multimode**
 
 .. code-block:: python
 
@@ -701,16 +691,13 @@ Zone de Saisie Multimode
             type=["txt", "pdf", "docx"]
         )
 
-Explications :
-~~~~~~~~~~~~~~
+*Explications :*
+
 - Interface unifiée pour différentes méthodes de saisie
 - Traitement spécifique pour chaque type d'entrée
+**Visualisations Avancées**
 
-Visualisations Avancées
------------------------
-
-Cartes de Résultats
--------------------
+  **- Cartes de Résultats**
 
 .. code-block:: python
 
@@ -723,13 +710,12 @@ Cartes de Résultats
             </div>
             """, unsafe_allow_html=True)
 
-Explications :
-~~~~~~~~~~~~~~
+*Explications :*
+
 - Utilisation de HTML/CSS pour des cartes stylisées
 - Classes CSS dynamiques en fonction du type de correspondance
 
-Réseau de Similarité
---------------------
+  **-Réseau de Similarité**
 
 .. code-block:: python
 
@@ -744,17 +730,14 @@ Réseau de Similarité
         net.from_nx(G)
         return net
 
-Explications :
-~~~~~~~~~~~~~~
+*Explications :*
+
 - Utilisation de NetworkX pour la création du graphe
 - Intégration avec PyVis pour le rendu interactif
 
----------------------
-Gestion des Données
--------------------
+**Gestion des Données**
 
-Cache et Performance
---------------------
+  **- Cache et Performance**
 
 .. code-block:: python
 
@@ -763,13 +746,12 @@ Cache et Performance
         # Fonction de traduction
         return translated_text
 
-Explications :
-~~~~~~~~~~~~~~
+*Explications :*
+
 - ``@st.cache_data`` pour cacher les résultats coûteux
 - TTL (Time-To-Live) de 1 heure pour les traductions
 
-Traitement des Fichiers
------------------------
+  **- Traitement des Fichiers**
 
 .. code-block:: python
 
@@ -779,17 +761,14 @@ Traitement des Fichiers
     elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
         text = docx2txt.process(uploaded_file)
 
-Explications :
-~~~~~~~~~~~~~~
+*Explications :*
+
 - Support multi-format (PDF, DOCX, etc.)
 - Extraction robuste du texte
 
-------------------
-Design Avancé
--------------
+**Design Avancé**
 
-CSS Personnalisé
-----------------
+  **- CSS Personnalisé**
 
 .. code-block:: python
 
@@ -810,13 +789,12 @@ CSS Personnalisé
         """
         st.markdown(css, unsafe_allow_html=True)
 
-Explications :
-~~~~~~~~~~~~~~
+*Explications :*
+
 - Styles CSS intégrés directement dans Streamlit
 - Utilisation de gradients et d'effets modernes
 
-Mise en Page
-------------
+**Mise en Page**
 
 .. code-block:: python
 
@@ -826,17 +804,14 @@ Mise en Page
     with col2:
         st.metric("Correspondances", count)
 
-Explications :
-~~~~~~~~~~~~~~
+*Explications :*
+
 - Layout multi-colonnes pour une organisation optimale
 - Widgets de métriques pour les KPI
 
---------------------
-Fonctionnalités Avancées
-------------------------
+**Fonctionnalités Avancées**
 
-Onglets Interactifs
--------------------
+  **- Onglets Interactifs**
 
 .. code-block:: python
 
@@ -847,13 +822,12 @@ Onglets Interactifs
         for match in matches:
             display_match_card(match)
 
-Explications :
-~~~~~~~~~~~~~~
+*Explications :*
+
 - Navigation par onglets pour organiser le contenu
 - Contenu dynamique dans chaque onglet
 
-Génération de Rapports
-----------------------
+  **- Génération de Rapports**
 
 .. code-block:: python
 
@@ -868,17 +842,15 @@ Génération de Rapports
             }
         }, indent=2)
 
-Explications :
-~~~~~~~~~~~~~~
+*Explications :*
+
 - Format JSON structuré
 - Téléchargement direct via Streamlit
 
---------------------
-Conclusion
-----------
+**Conclusion**
 
 Cette interface Streamlit combine :
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 - Des composants UI riches
 - Des visualisations interactives
 - Une gestion efficace des données
@@ -896,83 +868,76 @@ Travaux futurs
 
 Cette partie présente les améliorations potentielles pour la future version du système de détection de plagiat.
 
-1. Améliorations des Algorithmes
---------------------------------
+**1. Améliorations des Algorithmes**
 
-1.1. Intégration de Modèles Multilingues Avancés
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*1.1. Intégration de Modèles Multilingues Avancés*
+
 - Ajout de modèles spécialisés pour d'autres langues (espagnol, allemand, chinois)
 - Implémentation d'un système de détection automatique de langue plus robuste
 - Optimisation des traductions avec des modèles dédiés (NLLB, DeepL)
 
-1.2. Amélioration des Scores de Similarité
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*1.2. Amélioration des Scores de Similarité*
 - Combinaison de plusieurs métriques (BERTScore, ROUGE, BLEU)
 - Ajout d'un système de pondération dynamique basé sur le contexte
 - Intégration de modèles de similarité spécifiques aux domaines (scientifique, juridique)
 
-2. Fonctionnalités Avancées
----------------------------
+**2. Fonctionnalités Avancées**
 
-2.1. Analyse Temporelle
-~~~~~~~~~~~~~~~~~~~~~~~
+*2.1. Analyse Temporelle*
+
 - Détection des variations stylistiques dans le texte
 - Identification des ajouts/modifications successifs
 - Reconstruction de l'historique d'écriture
 
-2.2. Détection de Paraphrase Sophistiquée
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*2.2. Détection de Paraphrase Sophistiquée*
+
 - Modèles spécifiques pour identifier les paraphrases avancées
 - Détection des modifications structurelles (changement d'ordre des idées)
 - Analyse des patterns de réécriture
 
-3. Interface Utilisateur
-------------------------
+**3. Interface Utilisateur**
 
-3.1. Tableau de Bord Analytique
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*3.1. Tableau de Bord Analytique*
+
 - Visualisations interactives des résultats
 - Comparaison avec les soumissions précédentes
 - Suivi des améliorations dans les révisions
 
-3.2. Outils d'Aide à la Réécriture
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*3.2. Outils d'Aide à la Réécriture*
+
 - Suggestions de reformulation originales
 - Générateur de citations automatiques
 - Identification des passages à risque
 
-4. Infrastructure Technique
----------------------------
+**4. Infrastructure Technique**
 
-4.1. Optimisation des Performances
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*4.1. Optimisation des Performances*
+
 - Implémentation d'un système de cache distribué
 - Prétraitement asynchrone des documents
 - Indexation incrémentielle
 
-4.2. Extension des Bases de Référence
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*4.2. Extension des Bases de Référence*
+
 - Intégration de nouvelles sources académiques
 - Connexion aux bases de données ouvertes
 - Mise à jour automatique du corpus de référence
 
-5. Intégrations Système
------------------------
+**5. Intégrations Système**
 
-5.1. API Universelle
-~~~~~~~~~~~~~~~~~~~~
+*5.1. API Universelle*
+
 - Développement d'une API RESTful complète
 - Intégration avec les LMS (Moodle, Canvas)
 - Connecteurs pour les outils d'édition (Word, Google Docs)
 
-5.2. Modules Spécialisés
-~~~~~~~~~~~~~~~~~~~~~~~~
+*5.2. Modules Spécialisés*
+
 - Version pour l'édition scientifique
 - Module dédié à l'éducation
 - Solution pour les éditeurs professionnels
 
-Perspectives à Long Terme
--------------------------
+**Perspectives à Long Terme**
 
 - Analyse multimodale (texte + images + formules)
 - Détection cross-média (vidéos, podcasts)
