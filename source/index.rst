@@ -866,8 +866,8 @@ Cette interface Streamlit combine :
 
 Les techniques présentées peuvent être adaptées pour tout type d'application data-centric.
 
-Résultas
-========
+Résultats
+=========
 
 Comme exemple , nous avons testé notre application par différents formes , un texte déja déja en pdf mais en une autre language , un texte similaire , un texte similaire mais par des mots différents pour tester le coté sémantique , un texte qui a une idéé simialaire à une idée déja en pdf , un text qui est trés loin de dataset pour montrer de non-plagiat , nous avons aussi testé application par des textes sous forme "txt", "pdf", "docx", et elle donne des bonnes résultats
 
