@@ -875,39 +875,39 @@ voici les résultats sur streamlit  d' un exemple :(entrer un text similaire à 
 
 .. image:: image/P1.png
    :alt: a
-   :width: 400px
+   :width: 700px
 
 .. image:: image/P2.png
    :alt: b
-   :width: 400px
+   :width: 700px
 
 .. image:: image/P3.png
    :alt: c
-   :width: 400px
+   :width: 700px
 
 .. image:: image/P4.png
    :alt: d
-   :width: 400px
+   :width: 700px
 
 .. image:: image/P5.png
    :alt: e
-   :width: 400px
+   :width: 700px
 
 .. image:: image/P6.png
    :alt: f
-   :width: 400px
+   :width: 700px
 
 .. image:: image/P9.png
    :alt: g
-   :width: 400px
+   :width: 700px
 
 .. image:: image/P7.png
    :alt: h
-   :width: 400px
+   :width: 700px
 
 .. image:: image/P8.png
    :alt: i
-   :width: 400px
+   :width: 700px
 
 Travaux futurs
 ==============
