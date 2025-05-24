@@ -391,6 +391,7 @@ La recherche hybride combine plusieurs techniques de similarité textuelle pour 
 .. code-block:: python
    :linenos:
    :emphasize-lines: 3-5,12-15
+
    def check_exact_match(input_text: str, dataset: List[str]) -> List[Tuple[str, float]]:
     """Vérifie les correspondances exactes avec normalisation avancée"""
     def normalize(text):
