@@ -158,8 +158,9 @@ pipeline
 
 explication de pipline:
 -----------------------
+
 Phase 1: Préparation de la Base Vectorielle
--------------------------------------------
+___________________________________________
 
 .. list-table::
    :header-rows: 1
