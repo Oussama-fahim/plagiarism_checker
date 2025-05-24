@@ -391,8 +391,7 @@ La recherche hybride combine plusieurs techniques de similarité textuelle pour 
 .. code-block:: python
    :linenos:
    :emphasize-lines: 3-5,12-15
-
-  def check_exact_match(input_text: str, dataset: List[str]) -> List[Tuple[str, float]]:
+   def check_exact_match(input_text: str, dataset: List[str]) -> List[Tuple[str, float]]:
     """Vérifie les correspondances exactes avec normalisation avancée"""
     def normalize(text):
         text = re.sub(r'[^\w\s]', '', text.strip().lower())
@@ -425,7 +424,8 @@ La recherche hybride combine plusieurs techniques de similarité textuelle pour 
                 break
     
     unique_matches = {match[0]: match[1] for match in matches}
-    return sorted(unique_matches.items(), key=lambda x: x[1], reverse=True)
+    return sorted(unique_matches.items(), key=lambda x: x[1], reverse=True) 
+   
 
 *Explication* : 
 
