@@ -6,13 +6,13 @@ Bienvenue dans la documentation du projet Détection de plagiat par Intelligence
 
 Préparé par :
 -------------
-  **-Oussama Fahim**
+  **- Oussama Fahim**
 
-  **-Fatima el Fadili**
+  **- Fatima el Fadili**
 
 Encadé par :
 ------------
-    **- M.hajji**
+    **- Mr. Tarik Hajji**
 
 Table des matières
 ------------------
@@ -30,14 +30,59 @@ Table des matières
 
 Introduction
 ============
+La détection automatique du plagiat est un enjeu crucial dans les mondes académique et professionnel, où la vérification de l'originalité d'un contenu est essentielle pour préserver la crédibilité intellectuelle et l'intégrité des travaux.
 
-La détection automatique du plagiat est devenue un enjeu crucial dans le monde académique et professionnel, où la vérification de l'originalité d'un contenu est essentielle à la crédibilité intellectuelle et à l’intégrité des travaux. 
+Ce projet propose une solution intelligente et robuste de détection de plagiat en temps réel, combinant :
 
-Ce projet propose une solution intelligente et robuste de détection de plagiat en temps réel, exploitant les dernières avancées en **traitement du langage naturel (NLP)**, **recherche vectorielle**, et **modèles de similarité sémantique multilingue**.
+- **Traitement du Langage Naturel (NLP)** avancé
+- **Recherche vectorielle** et similarité sémantique
+- **Modèles multilingues** pour la détection translinguistique
+- **Analyse stylométrique** pour l'identification d'auteur
 
-En s’appuyant sur une combinaison d’**embeddings puissants**, de **moteurs de recherche hybride**, de **modèles cross-encoders**, ainsi que d’une **analyse stylistique avancée**, cette plateforme permet de détecter différents types de plagiat : copie exacte, paraphrase, similitude conceptuelle, ou correspondance multilingue.
+**Étude Comparative des Approches Existantes**
 
-Le tout est encapsulé dans une interface interactive développée avec **Streamlit**, offrant à l'utilisateur une expérience fluide, visuelle, et totalement explicable.
++---------------------+---------------------+---------------------+---------------------+
+| Méthode             | Avantages           | Limites             | Précision           |
++=====================+=====================+=====================+=====================+
+| **Recherche par**   | - Rapidité          | - Ne capture pas    | 40-60%              |
+| **mot-clé**         | - Simple à mettre   |   la similarité     |                     |
+| (TF-IDF, BM25)      |   en œuvre          |   sémantique        |                     |
++---------------------+---------------------+---------------------+---------------------+
+| **Embeddings**      | - Capture la        | - Coût calcul       | 70-85%              |
+| **statiques**       |   sémantique        |   élevé pour        |                     |
+| (Word2Vec, GloVe)   | - Résultats plus    |   les longs textes  |                     |
+|                     |   pertinents        |                     |                     |
++---------------------+---------------------+---------------------+---------------------+
+| **Modèles de**      | - Excellente        | - Très gourmand     | 85-95%              |
+| **similarité**      |   compréhension     |   en ressources     |                     |
+| **contextuelle**    |   contextuelle      | - Requiert un       |                     |
+| (BERT, SBERT)       | - Multilingue       |   fine-tuning       |                     |
++---------------------+---------------------+---------------------+---------------------+
+| **Approche**        | - Détection des     | - Complexité        | 75-90%              |
+| **hybride**         |   paraphrases       |   d'implémentation  |                     |
+| (combinaison NLP +  | - Meilleure couvert-|                     |                     |
+| analyse stylistique)|   ure des cas       |                     |                     |
++---------------------+---------------------+---------------------+---------------------+
+
+**Architecture Proposée**
+
+Notre solution combine les méthodes les plus performantes :
+
+1. **Couche de récupération** :
+
+   - Moteur hybride (lexical + vectoriel)
+   - Base de données documentaire enrichie
+
+2. **Couche de reranking** :
+
+   - Modèles Cross-Encoder pour affiner les résultats
+   - Analyse de similarité fine
+
+3. **Couche d'explication** :
+
+   - Alignement textuel visualisé
+   - Scores d'originalité par segment
+   - Détection des paraphrases
 
 Objectifs du projet
 ===================
