@@ -24,7 +24,7 @@ Table des matières
 - `Création d'une Base de Données Vectorielle <index.html#id5>`_
 - `Application des Approches de Recherche Hybride <index.html#id6>`_
 - `Création d'une interface streamlit <index.html#id7>`_ 
-- `Résultat <index.html#id8>`_
+- `Résultats <index.html#id8>`_
 - `Travaux Futurs <index.html#id9>`_
 - `Conclusion <index.html#id10>`_
 
@@ -941,7 +941,7 @@ voici les résultats sur streamlit  d' un exemple :(entrer un texte similaire à
 
 .. image:: image/P8.png
    :alt: i
-   :width: 
+   :width: 900px
 
 **dans rapport complet , tu peux voir le rapport complet de résultat ou tu peux aussi le télechager , avec un résumé exécutif ,et enfin une recommandation (conseil)**
 
