@@ -14,8 +14,8 @@ Table des matières
 - `Objectifs du projet <index.html#id2>`_
 - `Installation <index.html#id3>`_
 - `Pipeline <index.html#id4>`_
-- `Création d'une base de donnés vectorielle <index.html#id5>`_
-- `Application des approches (recherche hybride) <index.html#id6>`_
+- `Création d'une Base de Données Vectorielle <index.html#id5>`_
+- `Application des Approches de Recherche Hybride <index.html#id6>`_
 - `Création d'une interface streamlit <index.html#id7>`_ 
 - `Résultat <index.html#id8>`_
 - `Travaux Futurs <index.html#id9>`_
@@ -355,7 +355,7 @@ Ce guide constitue une base robuste pour créer une base vectorielle à partir d
 
 
 Application des Approches de Recherche Hybride
-=============================================
+==============================================
 
 .. contents:: 
    :depth: 3
@@ -569,7 +569,7 @@ Cette approche hybride combine :
 - *Couverure* : Analyse multilingue
 - *Transparence* : Visualisations explicatives
 
-création d'une interface streamlit 
+Création d'une interface streamlit 
 ==================================
 
 Cette partie détaille la conception et l'implémentation d'une interface Streamlit complète pour une application de détection de plagiat AI-powered.
@@ -859,7 +859,7 @@ Cette interface Streamlit combine :
 
 Les techniques présentées peuvent être adaptées pour tout type d'application data-centric.
 
-resultas
+Résultas
 ========
 
 
