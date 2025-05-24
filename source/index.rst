@@ -490,8 +490,6 @@ La fonction `translate_text` permet d'effectuer une traduction intelligente d'un
 
 *Fonctionnement* :  
 
-Coeur de l'approche hybride :
-
 La fonction `calculate_similarity` calcule un score de similarité entre deux textes en combinant deux approches complémentaires : une **similarité lexicale** (basée sur TF-IDF) et une **similarité sémantique** (basée sur un modèle Cross-Encoder).  
 
 D'abord, la méthode **TF-IDF** vectorise les deux textes et mesure leur similarité cosinus, ce qui permet d'évaluer leur ressemblance au niveau des mots et des fréquences. Ensuite, un **Cross-Encoder** (modèle de deep learning) analyse la signification profonde des textes pour déterminer leur proximité sémantique. Les deux scores sont combinés de manière pondérée (70% pour le Cross-Encoder et 30% pour TF-IDF) afin d'obtenir une mesure à la fois précise et nuancée.  
@@ -504,7 +502,7 @@ En cas d'erreur (par exemple, si le vectoriseur TF-IDF ou le modèle Cross-Encod
    :linenos:
    :emphasize-lines: 8-9,15-17,25-27
 
-  def hybrid_search(query: str, dataset: List[str], top_k: int = 10) -> List[Dict[str, Any]]:
+   def hybrid_search(query: str, dataset: List[str], top_k: int = 10) -> List[Dict[str, Any]]:
     """Recherche hybride multilingue avec gestion des erreurs"""
     global vecdb
     
