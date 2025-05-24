@@ -894,7 +894,7 @@ voici les résultats sur streamlit  d' un exemple :(entrer un texte similaire à
    :alt: c
    :width: 900px
 
-**voici le resultat général qui nous déclare que la plagiat est évident d'un score de 85% et un dashboard qui donne les pourcentage de similitude et d'original **
+**voici le resultat général qui nous déclare que la plagiat est évident d'un score de 85% et un dashboard qui donne les pourcentage de similitude et d'original**
 
 
 
