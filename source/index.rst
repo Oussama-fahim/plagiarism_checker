@@ -869,7 +869,7 @@ Les techniques présentées peuvent être adaptées pour tout type d'application
 Résultats
 =========
 
-Comme exemple , nous avons testé notre application par différents formes , un texte déja déja en pdf mais en une autre language , un texte similaire , un texte similaire mais par des mots différents pour tester le coté sémantique , un texte qui a une idéé simialaire à une idée déja en pdf , un text qui est trés loin de dataset pour montrer de non-plagiat , nous avons aussi testé application par des textes sous forme "txt", "pdf", "docx", et elle donne des bonnes résultats
+pour connaitre la performance des modèles  , nous avons testé notre application par différents formes , un texte déja déja en pdf mais en une autre language , un texte similaire , un texte similaire mais par des mots différents pour tester le coté sémantique , un texte qui a une idéé simialaire à une idée déja en pdf , un text qui est trés loin de dataset pour montrer de non-plagiat , nous avons aussi testé application par des textes sous forme "txt", "pdf", "docx", et elle donne des bonnes résultats
 
 voici les résultats sur streamlit  d' un exemple :(entrer un texte similaire à un texte de dataset avec la changement de quelques mots)
 
