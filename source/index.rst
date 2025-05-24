@@ -14,7 +14,7 @@ Table des matières
 - `Objectifs du projet <index.html#id2>`_
 - `Installation <index.html#id3>`_
 - `Pipeline <index.html#id4>`_
-- `Creation d'une base de donnés vectorielle <index.html#id5>`_
+- `Création d'une base de donnés vectorielle <index.html#id5>`_
 - `Application des approches (recherche hybride) <index.html#id6>`_
 - `Création d'une interface streamlit <index.html#id7>`_ 
 - `Résultat <index.html#id8>`_
@@ -145,6 +145,7 @@ Les bibliothèques suivantes sont nécessaires pour le projet :
 
 pipeline
 ========
+
 .. list-table::
    :widths: 200 200
    :align: center
@@ -221,8 +222,8 @@ pipeline
      - Export des résultats détaillés
 
 
-Création d'une Base de Données Vectorielle avec LlamaParse
-===========================================================
+Création d'une Base de Données Vectorielle 
+==========================================
 
 Ce guide fournit une procédure complète pour transformer un ou plusieurs fichiers PDF en une base de données vectorielle, utilisable notamment pour la détection de similarité textuelle ou de plagiat. L'approche repose sur l'utilisation combinée de **LlamaParse** pour l'extraction intelligente de texte structuré et de **LangChain** pour la vectorisation et la gestion des documents.
 
