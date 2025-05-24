@@ -869,7 +869,45 @@ Les techniques présentées peuvent être adaptées pour tout type d'application
 Résultas
 ========
 
+Comme exemple , nous avons testé notre application par différents formes , un texte déja déja en pdf mais en une autre language , un texte similaire , un texte similaire mais par des mots différents pour tester le coté sémantique , un texte qui a une idéé simialaire à une idée déja en pdf , un text qui est trés loin de dataset pour montrer de non-plagiat , nous avons aussi testé application par des texts sous forme "txt", "pdf", "docx", et elle donne des bonnes résultats
 
+voici les résultats sur streamlit  d' un exemple :(entrer un text similaire à un text de dataset avec la changement de quelques mots)
+
+.. image:: image/P1.png
+   :alt: a
+   :width: 400px
+
+.. image:: image/P2.png
+   :alt: b
+   :width: 400px
+
+.. image:: image/P3.png
+   :alt: c
+   :width: 400px
+
+.. image:: image/P4.png
+   :alt: d
+   :width: 400px
+
+.. image:: image/P5.png
+   :alt: e
+   :width: 400px
+
+.. image:: image/P6.png
+   :alt: f
+   :width: 400px
+
+.. image:: image/P9.png
+   :alt: g
+   :width: 400px
+
+.. image:: image/P7.png
+   :alt: h
+   :width: 400px
+
+.. image:: image/P8.png
+   :alt: i
+   :width: 400px
 
 Travaux futurs
 ==============
