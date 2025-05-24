@@ -12,7 +12,7 @@ Préparé par :
 
 Encadé par :
 ------------
-    **M.hajji**
+    **- M.hajji**
 
 Table des matières
 ------------------
