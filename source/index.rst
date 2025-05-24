@@ -34,32 +34,32 @@ La détection automatique du plagiat est un enjeu crucial dans les mondes acadé
 
 Ce projet propose une solution intelligente et robuste de détection de plagiat en temps réel, combinant :
 
-- **Traitement du Langage Naturel (NLP)** avancé
-- **Recherche vectorielle** et similarité sémantique
-- **Modèles multilingues** pour la détection translinguistique
-- **Analyse stylométrique** pour l'identification d'auteur
+- *Traitement du Langage Naturel (NLP)* avancé
+- *Recherche vectorielle* et similarité sémantique
+- *Modèles multilingues* pour la détection translinguistique
+- *Analyse stylométrique* pour l'identification d'auteur
 
 **Étude Comparative des Approches Existantes**
 
 +---------------------+---------------------+---------------------+---------------------+
 | Méthode             | Avantages           | Limites             | Précision           |
 +=====================+=====================+=====================+=====================+
-| **Recherche par**   | - Rapidité          | - Ne capture pas    | 40-60%              |
-| **mot-clé**         | - Simple à mettre   |   la similarité     |                     |
+| *Recherche par*     | - Rapidité          | - Ne capture pas    | 40-60%              |
+| *mot-clé*           | - Simple à mettre   |   la similarité     |                     |
 | (TF-IDF, BM25)      |   en œuvre          |   sémantique        |                     |
 +---------------------+---------------------+---------------------+---------------------+
-| **Embeddings**      | - Capture la        | - Coût calcul       | 70-85%              |
-| **statiques**       |   sémantique        |   élevé pour        |                     |
+| *Embeddings*        | - Capture la        | - Coût calcul       | 70-85%              |
+| *statiques*         |   sémantique        |   élevé pour        |                     |
 | (Word2Vec, GloVe)   | - Résultats plus    |   les longs textes  |                     |
 |                     |   pertinents        |                     |                     |
 +---------------------+---------------------+---------------------+---------------------+
-| **Modèles de**      | - Excellente        | - Très gourmand     | 85-95%              |
-| **similarité**      |   compréhension     |   en ressources     |                     |
-| **contextuelle**    |   contextuelle      | - Requiert un       |                     |
+| *Modèles de*        | - Excellente        | - Très gourmand     | 85-95%              |
+| *similarité*        |   compréhension     |   en ressources     |                     |
+| *contextuelle*      |   contextuelle      | - Requiert un       |                     |
 | (BERT, SBERT)       | - Multilingue       |   fine-tuning       |                     |
 +---------------------+---------------------+---------------------+---------------------+
-| **Approche**        | - Détection des     | - Complexité        | 75-90%              |
-| **hybride**         |   paraphrases       |   d'implémentation  |                     |
+| *Approche*          | - Détection des     | - Complexité        | 75-90%              |
+| *hybride*           |   paraphrases       |   d'implémentation  |                     |
 | (combinaison NLP +  | - Meilleure couvert-|                     |                     |
 | analyse stylistique)|   ure des cas       |                     |                     |
 +---------------------+---------------------+---------------------+---------------------+
@@ -68,17 +68,17 @@ Ce projet propose une solution intelligente et robuste de détection de plagiat 
 
 Notre solution combine les méthodes les plus performantes :
 
-1. **Couche de récupération** :
+1. *Couche de récupération* :
 
    - Moteur hybride (lexical + vectoriel)
    - Base de données documentaire enrichie
 
-2. **Couche de reranking** :
+2. *Couche de reranking* :
 
    - Modèles Cross-Encoder pour affiner les résultats
    - Analyse de similarité fine
 
-3. **Couche d'explication** :
+3. *Couche d'explication* :
 
    - Alignement textuel visualisé
    - Scores d'originalité par segment
