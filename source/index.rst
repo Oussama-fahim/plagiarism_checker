@@ -879,36 +879,49 @@ voici les résultats sur streamlit  d' un exemple :(entrer un texte similaire à
 
 **voici l'interface initial de notre application en streamlit**
 
+
+
 .. image:: image/P2.png
    :alt: b
    :width: 900px
 
 **nous avons entré un texte similaire avec changement de quelques mots dans text direct**
 
+
+
+
 .. image:: image/P3.png
    :alt: c
    :width: 900px
 
-** voici le resultat général qui nous déclare que la plagiat est évident d'un score de 85% et un dashboard qui donne les pourcentage de similitude et d'original **
+**voici le resultat général qui nous déclare que la plagiat est évident d'un score de 85% et un dashboard qui donne les pourcentage de similitude et d'original **
+
+
 
 .. image:: image/P4.png
    :alt: d
    :width: 900px
 
-** voici les principales correspondances  avec chaque texte qui est en dataset qui est correspondant a chaque extrait analysé de texte d'entré avec un score de plagiat**
+**voici les principales correspondances  avec chaque texte qui est en dataset qui est correspondant a chaque extrait analysé de texte d'entré avec un score de plagiat**
+
+
 
 .. image:: image/P5.png
    :alt: e
    :width: 900px
 
-** cette visualisation pour les idéés qui sont conceptuellement similaires,et elle affiche chaque idée qui est en dataset qui est correspondant a chaque idée de texte d'entré avec un score de similarité**
+**cette visualisation pour les idéés qui sont conceptuellement similaires,et elle affiche chaque idée qui est en dataset qui est correspondant a chaque idée de texte d'entré avec un score de similarité**
+
+
 
 
 .. image:: image/P6.png
    :alt: f
    :width: 900px
 
- ** voici une liste complète bien rédigé de correspondances avec ses options d'affichages, score minimum à afficher et type de correspondance (exact,semantic,transleted)**
+**voici une liste complète bien rédigé de correspondances avec ses options d'affichages, score minimum à afficher et type de correspondance (exact,semantic,transleted)**
+
+
 
 .. image:: image/P9.png
    :alt: g
@@ -916,17 +929,22 @@ voici les résultats sur streamlit  d' un exemple :(entrer un texte similaire à
 
 **dans visualisations , on trouve le réseau de similarité qui relie chaque docs de l'entrée à une source (database vectorielle)**
 
+
+
 .. image:: image/P7.png
    :alt: h
    :width: 900px
 
-** ce diagramme à barre montre que notre texte d'entrée est de type copie exacte**
+**ce diagramme à barre montre que notre texte d'entrée est de type copie exacte**
+
+
 
 .. image:: image/P8.png
    :alt: i
    :width: 
 
-** dans rapport complet , tu peux voir le rapport complet de résultat ou tu peux aussi le télechager , avec un résumé exécutif ,et enfin une recommandation (conseil)**
+**dans rapport complet , tu peux voir le rapport complet de résultat ou tu peux aussi le télechager , avec un résumé exécutif ,et enfin une recommandation (conseil)**
+
 
 Travaux futurs
 ==============
